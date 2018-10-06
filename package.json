@@ -1,0 +1,21 @@
+{
+  "name": "koa-tus-minio-server",
+  "version": "1.0.0",
+  "description": "upload files server with koa, tus and minio",
+  "main": "index.js",
+  "repository": "https://github.com/ahmadaidil/koa-tus-minio-server.git",
+  "author": "Ahmad Aidil <ahmdaidil@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^6.0.0",
+    "koa": "^2.5.3",
+    "tus-node-server": "^0.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  },
+  "scripts": {
+    "start:hot": "nodemon .",
+    "start": "node ."
+  }
+}

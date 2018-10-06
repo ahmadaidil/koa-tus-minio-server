@@ -5,7 +5,6 @@ before running the server:
 * fill it (.env) variable with your configuration. eg:
 ```env
 SERVER_PORT="3000"
-MINIO_PATH="/"
 MINIO_BUCKET="node-s3"
 MINIO_ACCESS_KEY_ID="CLQ9PV3UJ3BXWGXA2EX4"
 MINIO_SECRET_ACCESS_KEY="OS4AN6zry9xid2L68mN7NkBn/JmVlWcI5F9Ja1Zf"

@@ -1,6 +1,7 @@
 const http = require('http');
 const url = require('url');
 const Koa = require('koa')
+const cors = require('@koa/cors');
 const tus = require('tus-node-server');
 const tusServer = new tus.Server();
 
@@ -10,6 +11,8 @@ const app = new Koa();
 const appCallback = app.callback();
 const host = '127.0.0.1';
 const port = process.env.SERVER_PORT || 3000;
+
+app.use(cors());
 
 tusServer.datastore = new tus.S3Store({
   path: process.env.MINIO_PATH,
@@ -23,14 +26,14 @@ tusServer.datastore = new tus.S3Store({
 });
 
 const server = http.createServer((req, res) => {
-    const urlPath = url.parse(req.url).pathname;
+  const urlPath = url.parse(req.url).pathname;
 
-    // handle any requests with the `/files/*` pattern
-    if (/^\/files\/.+/.test(urlPath.toLowerCase())) {
-        return tusServer.handle(req, res);
-    }
+  // handle any requests with the `/files/*` pattern
+  if (/^\/files\/.+/.test(urlPath.toLowerCase())) {
+      return tusServer.handle(req, res);
+  }
 
-    appCallback(req, res);
+  appCallback(req, res);
 });
 
 server.listen(port, () => {

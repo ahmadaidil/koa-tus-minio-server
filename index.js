@@ -4,6 +4,7 @@ const Koa = require('koa');
 const cors = require('@koa/cors');
 const tus = require('tus-node-server');
 const tusServer = new tus.Server();
+const tusEvent = tus.EVENTS;
 
 require('dotenv').config();
 
@@ -31,6 +32,24 @@ const server = http.createServer((req, res) => {
     return tusServer.handle(req, res);
   }
   appCallback(req, res);
+});
+
+tusServer.on(tusEvent.EVENT_UPLOAD_COMPLETE, (ev) => {
+  if(ev.file && ev.file.id) {
+    console.log('event when upload complete ==>', JSON.stringify(ev.file));
+  }
+});
+
+tusServer.on(tusEvent.EVENT_FILE_CREATED, (ev) => {
+  if(ev.file && ev.file.id) {
+    console.log('event when file created ==>', JSON.stringify(ev.file));
+  }
+});
+
+tusServer.on(tusEvent.EVENT_ENDPOINT_CREATED, (ev) => {
+  if(ev.url) {
+    console.log('event when ep created ==>', JSON.stringify(ev));
+  }
 });
 
 server.listen(port, () => {

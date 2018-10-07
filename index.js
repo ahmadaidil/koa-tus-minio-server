@@ -5,6 +5,7 @@ const cors = require('@koa/cors');
 const tus = require('tus-node-server');
 const tusServer = new tus.Server();
 const tusEvent = tus.EVENTS;
+const util = require('./util');
 
 require('dotenv').config();
 
@@ -37,6 +38,8 @@ const server = http.createServer((req, res) => {
 tusServer.on(tusEvent.EVENT_UPLOAD_COMPLETE, (ev) => {
   if(ev.file && ev.file.id) {
     console.log('event when upload complete ==>', JSON.stringify(ev.file));
+    const fileInfo = util.getFileInfo(ev.file);
+    console.info(fileInfo);
   }
 });
 
